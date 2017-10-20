@@ -236,6 +236,22 @@ else
     echo "TJBot project already exists in $TJBOT_DIR, leaving it alone"
 fi
 
+
+#----install nodejs packages
+echo "Install TJBot NodeJS test packages"
+npm install $TJBOT_DIR/bootstrap/tests
+
+#----clone tjbot nodered and start
+echo ""
+echo "We are ready to clone the TJBot NodeRed project from JeanCarl."
+mkdir ${user}/nodes 
+cd ${user}/nodes
+git clone https://github.com/jeancarl/node-red-contrib-tjbot
+cd node-red-contrib-tjbot
+npm install
+sudo node-red &
+echo "now you can point your browser to httop://127.0.0.1:"
+
 #----blacklist audio kernel modules
 echo ""
 echo "In order for the LED to work, we need to disable certain kernel modules to"
