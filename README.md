@@ -42,7 +42,7 @@ First, make sure you have configured your Raspberry Pi for TJBot.
 Just run that command to download and install TJBot:
 
 ```
-curl -sL http://ibm.biz/tjbot-bootstrap | sudo sh -
+curl -sL https://github.com/steftux/tjbot-1/raw/master/bootstrap/bootstrap.sh | sudo sh -
 ```
 
 [Recipes](recipes) are step-by-step instructions to bring your TJBot to life with [Watson](https://www.ibm.com/watson/developercloud/services-catalog.html).
