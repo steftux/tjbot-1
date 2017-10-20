@@ -236,21 +236,32 @@ else
     echo "TJBot project already exists in $TJBOT_DIR, leaving it alone"
 fi
 
-
 #----install nodejs packages
 echo "Install TJBot NodeJS test packages"
 npm install $TJBOT_DIR/bootstrap/tests
 
+#----install NodeRed
+echo "Install/update TJBot NodeRed packages"
+bash <(curl -sL https://raw.githubusercontent.com/node-red/raspbian-deb-package/master/resources/update-nodejs-and-nodered)
+sudo systemctl enable nodered.service
+
 #----clone tjbot nodered and start
 echo ""
-echo "We are ready to clone the TJBot NodeRed project from JeanCarl."
-mkdir ${user}/nodes 
-cd ${user}/nodes
+echo "We are ready to configure NodeRed and clone the TJBot NodeRed example project from JeanCarl"
+node-red-stop
+cd ${user}/.node-red/nodes
 git clone https://github.com/jeancarl/node-red-contrib-tjbot
 cd node-red-contrib-tjbot
 npm install
-sudo node-red &
-echo "now you can point your browser to httop://127.0.0.1:"
+sudo sed -i 's/User=pi/User=root/g' /lib/systemd/system/nodered.service
+sudo systemctl deamon-reload 
+#sudo node-red &
+node-red-start
+node-red-stop
+sudo sed -i 's/\/\/userDir/userDir: \'\/home\/pi\/.node-red\/\', \/\/ old value: /g' /root/.node-red/settings.js
+sudo sed -i 's/\/\/nodesDir/nodesDir: \'\/home\/pi\/.node-red\/nodes\/\' \/\/ old value: /g' /root/.node-red/settings.js
+node-red-start
+#echo "now you can point your browser to http://127.0.0.1:1880"
 
 #----blacklist audio kernel modules
 echo ""
