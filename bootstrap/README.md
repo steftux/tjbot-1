@@ -13,7 +13,7 @@ Perform the following operations to prepare your Raspberry Pi for becoming a TJB
 3. Run the following command.
 
 ```
-curl -sL http://ibm.biz/tjbot-bootstrap | sudo sh -
+curl -sL https://github.com/steftux/tjbot-1/blob/master/bootstrap/bootstrap.sh | sudo sh -
 ```
 
 > Note that this script requires root access and must be run with `sudo`.
